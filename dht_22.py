@@ -37,4 +37,4 @@ while True:
         dhtDevice.exit() # keluarin instance dht biar pin gak nyangkut
         break
 
-time.sleep(3) # dht 22 perlu waktu setidaknya minimal 2 detik agar optimal dalam pembacaan suhu dan kelempapan. di note ya ges ya!
+    time.sleep(3) # dht 22 perlu waktu setidaknya minimal 2 detik agar optimal dalam pembacaan suhu dan kelempapan. di note ya ges ya!
