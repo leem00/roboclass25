@@ -19,7 +19,7 @@ while True:
 
         # Print hasilnya dalam format yang bersesuaian
         print("Temp: {:.1f} F / {:.1f} C    Humidity: {}% ".format(temperature_f, temperature_c, humidity)) # cetakkk
-
+        time.sleep(3) # dht 22 perlu waktu setidaknya minimal 2 detik agar optimal dalam pembacaan suhu dan kelempapan. di note ya ges ya!
     # sedikit exception, untuk menangani error kalau misalnya sensor gak terbaca
     except RuntimeError as error:
         print(error.args[0])
@@ -36,5 +36,3 @@ while True:
         print("kelarrrrrr") # kelarrrrrrrr
         dhtDevice.exit() # keluarin instance dht biar pin gak nyangkut
         break
-
-    time.sleep(3) # dht 22 perlu waktu setidaknya minimal 2 detik agar optimal dalam pembacaan suhu dan kelempapan. di note ya ges ya!
