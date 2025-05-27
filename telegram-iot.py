@@ -35,10 +35,10 @@ def handle(msg):
         bot.sendMessage (chat_id, str("Command Tersedia:\n/led_1 = menyalakan lampu\n" + 
         "/led_0 = mematikan lampu\n" + "/state = cek sensor"))
     elif command == '/led_1':
-        bot.sendMessage(chat_id, str("Red led is ON"))
+        bot.sendMessage(chat_id, str("Lampu nyala, terang"))
         GPIO.output(led, True)
     elif command == '/led_0':
-        bot.sendMessage(chat_id, str("Red led is OFF"))
+        bot.sendMessage(chat_id, str("Lampu mati, innalillahi"))
         GPIO.output(led, False)
     elif command == '/state':
         if GPIO.input(cek) == 1:
@@ -47,10 +47,11 @@ def handle(msg):
             kondisi = "Ada objek terdeteksi!"
         bot.sendMessage(chat_id, str("Keadaan saat ini : {}").format(kondisi))
     else:
-        bot.sendMessage(chat_id, str("Plisss deh, \nkeyword itu kagak ada di list perintah"))
+        bot.sendMessage(chat_id, str("Plisss deh, \nkeyword itu kagak ada di list perintah" + 
+        "Kalau mau cek listnya, coba aja ketik /bismillah deh!"))
 
 # Masukkin token telegram anda disini ya!
-bot = telepot.Bot('TOKEN BOT TELEGRAM ANDA')
+bot = telepot.Bot('TOKEN BOT TELEGRAM ANDA MASING-MASING')
 print (bot.getMe())
 
 # pokoknya ini mulai telegram
