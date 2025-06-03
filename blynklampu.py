@@ -1,34 +1,44 @@
 import sys
-sys.path.append("./blynk-library-python")
+sys.path.append("PATH DIREKTORI LIBRARY BLYNK KAMU")
+# misal "./blynk-library-python"
 
 import BlynkLib
 import RPi.GPIO as GPIO
 import time
 
-BLYNK_AUTH = 'zC44GTm_BmjJQEOKysPvBvksb31myuaX'
+BLYNK_AUTH = 'AUTH TOKEN BLYNK ANDA'
 blynk = BlynkLib.Blynk(BLYNK_AUTH)
 
+# variabel GPIO sensor atau komponen anda
 lampu = 16
 infra = 21
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
+
+# set mode input atau output
 GPIO.setup(lampu, GPIO.OUT)
 GPIO.setup(infra, GPIO.IN)
 
 try:
-    # activate electronic
+    
+    # kode aktivasi komponen elektronik dari virtual pin Blynk
     @blynk.on("V5")
-    def led1_handler(value):
+    def lampu_handler(value):  # menyalakan lampu (Nama fungsi bisa diganti)
         if int(value[0]) == 1:
             GPIO.output(lampu, GPIO.HIGH)
         else:
             GPIO.output(lampu, GPIO.LOW)
 
     while True:
-        blynk.run()
+        # run blynk agar terus terhubung
+        blynk.run()  
+
+        # input sensor 
         infraRead = GPIO.input(infra)
-        blynk.virtual_write(1, infraRead) # read sensor data
+
+        # baca input sensor, kemudian upload ke virtual pin yang dituju
+        blynk.virtual_write(1, infraRead)
         time.sleep(1)
 
 except KeyboardInterrupt:
