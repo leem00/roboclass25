@@ -24,7 +24,8 @@ try:
     
     # kode aktivasi komponen elektronik dari virtual pin Blynk
     @blynk.on("V5")
-    def lampu_handler(value):  # menyalakan lampu (Nama fungsi bisa diganti)
+    def lampu_handler(value):
+        # aksi apa yang mau dilakukan ada di scope fungsi ini
         if int(value[0]) == 1:
             GPIO.output(lampu, GPIO.HIGH)
         else:
