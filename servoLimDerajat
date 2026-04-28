@@ -1,0 +1,44 @@
+import RPi.GPIO as GPIO
+import time
+
+# setup awal
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
+# setup pin
+pinServo = 26
+GPIO.setup(pinServo, GPIO.OUT)
+
+# setup servo
+servoUcim = GPIO.PWM(pinServo, 50)
+servoUcim.start(0)
+
+# function untuk menggerakkan servo berdasarkan derajat
+def servoDerajat(derajat):
+    min_duty = 2
+    max_duty = 12
+    konversi = min_duty + ( (derajat / 180) * (max_duty + min_duty) ) 
+
+    servoUcim.ChangeDutyCycle(konversi);
+    time.sleep(0.5)
+    servoUcim.ChangeDutyCycle(0);
+    time.sleep(0.5)
+
+# loop 
+try:
+    while True:
+        servoDerajat(70)
+        time.sleep(1)
+        servoDerajat(20)
+        time.sleep(1)
+        servoDerajat(150)
+        time.sleep(1)
+        servoDerajat(90)
+        time.sleep(1)
+
+except KeyboardInterrupt:
+    servoUcim.stop()
+    print("Interuption")
+finally:
+    print("Selesai")
+    GPIO.cleanup()
