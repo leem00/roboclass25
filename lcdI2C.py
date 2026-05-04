@@ -1,31 +1,35 @@
+### LCD I2C Raspi Code Version 2.0 ###
+
+# import library
+import RPi.GPIO as GPIO
 from RPLCD.i2c import CharLCD
 import time
 
-# inisialisasi instance (ALAMAT LCD jangan lupa diganti)
-lcd = CharLCD('PCF8574', ALAMAT LCD)
-lcd.backlight_enabled = False # mati nyalain backlit lcd
+# setup
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.cleanup()
 
-while True:
-    try:
-      # clear display dulu
-      # supaya gak ada print lcd program lalu yang nyangkut
-      lcd.clear()
-  
-      lcd.write_string('Hello, World!') # tulis
-      time.sleep(2)  # tidur
-  
-      lcd.crlf()  # geser ke baris 2
-      lcd.write_string('Raspi + LCD') # tulis
-      time.sleep(5)  # nunggu
-  
-      lcd.clear()  # clear lagi
-      lcd.write_string('Goodbye!') # sayonara
-      time.sleep(2) # tidur
-    except KeyboardInterrupt:
-      print("kelarrrrrr")
-      lcd.close() # tutup instance lcd. penting banget dilakuin
-      break # usir dari loop
+# instantiate CharLCD object as lcd
+lcd = CharLCD(i2c_expander = "PCF8574", address = 0x27, cols = 16, rows = 2) # i2C_expander itu jenis I2Cnya
+lcd.backlight_enabled = False # turn off LCD backlight for 5 second
+time.sleep(5)
 
-# setelah selesai, 
-lcd.backlight_enabled = False # oke ges ya, dah tau kan?
-lcd.close() # tau kan buat apa?
+# loop
+try:
+    lcd.backlight_enabled = True # turn on LCD backlight
+    while True:
+        lcd.clear(); # clear the LCD display
+        lcd.cursor_pos = (0, 0) # set the LCD cursor
+        lcd.write_string("Hello World") # write the string
+        time.sleep(3)
+
+        lcd.clear();
+        lcd.cursor_pos = (1, 0)
+        lcd.write_string("Im Ucim")
+        time.sleep(3)
+        
+except KeyboardInterrupt:
+    console.log("interuption")
+finally:
+    GPIO.cleanup()
